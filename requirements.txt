@@ -1,0 +1,6 @@
+#
+# 本项目默认不依赖第三方库（.docx 读写通过标准库 zip/xml 实现）。
+#
+# 可选：若需要解析旧版 `.doc`（二进制 Word），通常需要 Windows + Microsoft Word，
+# 并可安装 pywin32 以启用自动化读取：
+# pywin32>=306
