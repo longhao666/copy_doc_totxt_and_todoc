@@ -10,7 +10,8 @@ from doc_text_sync import write_docx_text
 def _write_rtf_doc(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     rtf = r"{\rtf1\ansi" + "\n" + text.replace("\n", r"\par" + "\n") + "\n}"
-    path.write_text(rtf, encoding="utf-8", newline="\n")
+    with path.open("w", encoding="utf-8", newline="\n") as f:
+        f.write(rtf)
 
 
 def _write_docx(path: Path, text: str) -> None:
@@ -28,12 +29,11 @@ def main() -> int:
     # doc（这里用 RTF 内容 + .doc 扩展名，便于在有 Word 的机器上打开/解析）
     _write_rtf_doc(root / "sample.doc", "这是一个 DOC 样例（RTF 伪装）。\n第二行。")
 
-    (root / "README.md").write_text(
-        "该目录用于放置待处理的 .doc/.docx 文件。\n"
-        "你也可以运行 scripts/generate_sample_tree.py 自动生成样例。\n",
-        encoding="utf-8",
-        newline="\n",
-    )
+    with (root / "README.md").open("w", encoding="utf-8", newline="\n") as f:
+        f.write(
+            "该目录用于放置待处理的 .doc/.docx 文件。\n"
+            "你也可以运行 scripts/generate_sample_tree.py 自动生成样例。\n"
+        )
 
     print("已生成样例目录：copy/")
     return 0

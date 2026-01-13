@@ -80,7 +80,8 @@ def _read_doc_text(path: Path) -> str:
 
 def _write_utf8(path: Path, text: str) -> None:
     _ensure_dir(path.parent)
-    path.write_text(text, encoding="utf-8", newline="\n")
+    with path.open("w", encoding="utf-8", newline="\n") as f:
+        f.write(text)
 
 
 def _write_docx(path: Path, text: str) -> None:
